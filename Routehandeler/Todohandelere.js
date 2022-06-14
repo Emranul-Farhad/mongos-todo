@@ -47,9 +47,30 @@ router.post('/all', async(req,res)=>{
 
 
 // put by id
-router.put('/:id', (req,res)=> {
+router.put('/:id', async(req,res)=> {
+    await Todo.updateOne(
+        {_id : req.params.id},
+       {
+        $set : {
+            staus : "inactive"
+        },
 
-} )
+       },
+     (err)=> {
+        if(err){
+            res.status(500).json({
+                error : "Update error"
+            })
+        }
+        else{
+            res.status(200).json({
+                message: "update done"
+            })
+        }
+    }
+    )
+})
+
 
 // delet todo
 router.delete('/:id', (req,res)=> {})
