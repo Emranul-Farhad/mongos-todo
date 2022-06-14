@@ -30,7 +30,21 @@ router.post('/' , async(req,res)=> {
 })
 
 // post mulitple
-router.post('/all', (req,res)=>{})
+router.post('/all', async(req,res)=>{
+   await Todo.insertMany(req.body, (err)=>{
+    if(err){
+        res.status(500).json({
+            error : "insert many problem from server"
+        })
+    }
+    else{
+        res.status(200).json({
+            message: "insert many done"
+        })
+    }
+   } )
+})
+
 
 // put by id
 router.put('/:id', (req,res)=> {
